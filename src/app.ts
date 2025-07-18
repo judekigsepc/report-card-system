@@ -1,6 +1,6 @@
 
   
-    import express, { Request, Response } from 'express';
+  import express, { Request, Response } from 'express';
   import cors from 'cors';
   import cookieParser from 'cookie-parser';
   import connectToDB from '@configs/db'
