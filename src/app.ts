@@ -6,7 +6,9 @@
   import connectToDB from '@configs/db'
   import checkEnvVars from '@utils/checkEnv'
 
-  import authRouter from '@modules/auth/auth.route';
+import authRouter from '@modules/auth/auth.route';
+import superAdminRouter from '@modules/super-admin/super-admin.route';
+import schoolRouter from '@modules/schools/school.route';
 
 const app = express();
 
@@ -18,7 +20,7 @@ credentials: true
 app.use(express.json());
 app.use(cookieParser())
 
-const envVars = ["PORT","DB_URI","JWT_SECRET"]
+const envVars = ["PORT","DB_URI","JWT_SECRET","NODE_ENV","SUPER_ADMIN_USERNAME","SUPER_ADMIN_PASSWORD","SUPER_ADMIN_NICKNAME","CLOUDINARY_URL"]
 // Checking for presence of all env variables
 checkEnvVars(envVars)
 
@@ -37,3 +39,5 @@ res.send('Server up and running')
 })
 
 app.use('/api/auth', authRouter)
+app.use('/api/super_admin', superAdminRouter)
+app.use('/api/school',schoolRouter)

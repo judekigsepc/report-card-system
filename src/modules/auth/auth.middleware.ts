@@ -14,7 +14,7 @@ export const authenticateUser = async (req: Request, res: Response, next: NextFu
 
        const payload = jwt.verify(authToken,process.env.JWT_SECRET as string) as UserPayload
 
-       const userData = await User.findById(payload.userId)
+       const userData = await User.findById(payload.userId).lean()
 
        if (!userData) {
          throw new Error("User not found")
