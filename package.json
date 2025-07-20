@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.4",
     "multer": "^2.0.2",
+    "streamifier": "^0.1.1",
     "zod": "^4.0.5"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/mongoose": "^5.11.96",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.0.14",
+    "@types/streamifier": "^0.1.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
@@ -41,6 +43,7 @@
     "@utils": "dist/utils",
     "@configs": "dist/configs",
     "@modules": "dist/modules",
-    "@types": "dist/types"
+    "@types": "dist/types",
+    "@middlewares":"dist/middlewares"
   }
 }

@@ -22,7 +22,10 @@
       ],
       "@types/*": [
         "types/*"
-      ]
+      ],
+        "@middlewares/*": [
+        "middlewares/*"
+      ],
     }
   },
   "include": [

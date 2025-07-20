@@ -2,7 +2,10 @@ import mongoose, { Document, Schema } from "mongoose";
 
 interface ISchool extends Document {
     name: string
-    logoUrl: string
+    logoData: {
+        secure_url: string,
+        public_id: string
+    }
     phoneNumbers: string[]
     email: string
     address: string
@@ -14,9 +17,9 @@ const SchoolSchema = new Schema<ISchool>({
         required: true,
         unique: true
     },
-    logoUrl: {
-        type: String,
-        unique: true
+    logoData: {
+        secure_url: {type: String, default:""},
+        public_id: {type:String, default:""}
     },
     phoneNumbers: {
         type: [String],
@@ -31,7 +34,7 @@ const SchoolSchema = new Schema<ISchool>({
         type: String,
         required: true
     }
-})
+},{timestamps: true})
 
 const School = mongoose.model("School",SchoolSchema)
 
