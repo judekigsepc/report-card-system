@@ -9,9 +9,9 @@ import jwt from 'jsonwebtoken'
 export const registerUser = async (req:Request, res: Response) => {
     try {
 
-      validateRequestBody('creation','user',req)
+      const safeData = validateRequestBody('creation','user',req)
 
-      const password = await bcrypt.hash(req.body.password, 10)
+      const password = await bcrypt.hash(safeData.password, 10)
 
       // Checking if user already exists
       const existingUser = await User.findOne({email: req.body.email}).lean()
@@ -19,7 +19,7 @@ export const registerUser = async (req:Request, res: Response) => {
         throw new Error("User with the same email already exists")
       }
 
-      const registeredUser = await User.create({...req.body, password})
+      const registeredUser = await User.create({...safeData, password})
       
       sendSuccess(201,'User registration successful',registeredUser,res)
 
@@ -31,15 +31,15 @@ export const registerUser = async (req:Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
     try {
-        validateRequestBody('creation','user-login',req)
+        const safeData = validateRequestBody('creation','user-login',req)
 
-        const user = await User.findOne({email: req.body.email}).lean()
+        const user = await User.findOne({email: safeData.email}).lean()
 
         if(!user) {
             return sendError(400,"User login failed","User with email not found",res)
         }
 
-        const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+        const isPasswordValid = await bcrypt.compare(safeData.password, user.password)
         if (!isPasswordValid) {
             throw new Error("Wrong password provided")
         }
@@ -61,7 +61,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const updateSelf = async (req: Request, res:Response) => {
     try {
-         validateRequestBody('update','user',req)
+         const safeData = validateRequestBody('update','user',req)
 
          const userToUpdate = await User.findById(req.user._id)
 
@@ -69,7 +69,7 @@ export const updateSelf = async (req: Request, res:Response) => {
             throw new Error("User not found")
          }
 
-         const updatedUser = await User.findByIdAndUpdate(req.user._id,{...req.body},{new: true})
+         const updatedUser = await User.findByIdAndUpdate(req.user._id,{...safeData},{new: true})
 
          sendSuccess(200,"User update successful",updatedUser,res)
 

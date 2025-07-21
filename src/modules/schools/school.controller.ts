@@ -10,6 +10,10 @@ export const addSchool = async (req:Request,res:Response) => {
 
       const existingSchool = await School.findOne({name:safeData.name})
 
+      if (existingSchool) {
+        throw new Error("School already exists")
+      }
+
       const createdSchool = await School.create({...safeData})
 
      sendSuccess(201,"School added successfuly",createdSchool,res)
