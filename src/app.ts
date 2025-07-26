@@ -38,6 +38,6 @@ app.get('/', (req:Request, res:Response) => {
 res.send('Server up and running')
 })
 
-app.use('/api/auth', authRouter)
-app.use('/api/super_admin', superAdminRouter)
-app.use('/api/school',schoolRouter)
+app.use('/api/v1//auth', authRouter)
+app.use('/api/v1/super_admin', superAdminRouter)
+app.use('/api/v1/school',schoolRouter)

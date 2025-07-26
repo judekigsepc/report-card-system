@@ -21,7 +21,7 @@ export const registerUser = async (req:Request, res: Response) => {
 
       const registeredUser = await User.create({...safeData, password})
       
-      sendSuccess(201,'User registration successful',registeredUser,res)
+      sendSuccess(201,'User registration successful',registeredUser,res,true)
 
     }
     catch (err: unknown) {
@@ -52,7 +52,7 @@ export const loginUser = async (req: Request, res: Response) => {
             secure: false // SHOULD SET THIS TO TRUE IN PROD
         })
 
-        sendSuccess(200,"User login successful",{},res)
+        sendSuccess(200,"User login successful",{},res,false)
     }catch (err) {
          sendError(500,'User login failed',err, res)
 
@@ -71,7 +71,7 @@ export const updateSelf = async (req: Request, res:Response) => {
 
          const updatedUser = await User.findByIdAndUpdate(req.user._id,{...safeData},{new: true})
 
-         sendSuccess(200,"User update successful",updatedUser,res)
+         sendSuccess(200,"User update successful",updatedUser,res,true)
 
     }catch (err) {
         sendError(500,"User update failed",err,res)

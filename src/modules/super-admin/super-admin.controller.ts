@@ -32,7 +32,7 @@ export const superAdminLogin = async (req:Request, res: Response) => {
             secure: process.env.NODE_ENV === "production"
            })
 
-          return sendSuccess(200,"Super admin login successful",{},res)
+          return sendSuccess(200,"Super admin login successful",{},res,false)
        }catch (err) {
           return sendError(500,"Login as super admin failed",err,res)
     }

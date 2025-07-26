@@ -9,12 +9,7 @@ export const schoolSchema = z.object({
   email: z
     .string({ message: "Email must be a string" })
     .email({ message: "Invalid email format" }),
-
-  password: z
-    .string({ message: "Password must be a string" })
-    .min(8, { message: "Password must be at least 8 characters" })
-    .max(100, { message: "Password is too long" }),
-
+    
   address: z
     .string({ message: "Address must be a string" })
     .min(10, { message: "Address must be at least 10 characters" }),
