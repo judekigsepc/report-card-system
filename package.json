@@ -19,6 +19,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.4",
     "multer": "^2.0.2",
@@ -30,6 +31,7 @@
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/ioredis": "^4.28.10",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
     "@types/multer": "^2.0.0",
@@ -44,6 +46,6 @@
     "@configs": "dist/configs",
     "@modules": "dist/modules",
     "@types": "dist/types",
-    "@middlewares":"dist/middlewares"
+    "@middlewares": "dist/middlewares"
   }
 }

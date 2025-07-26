@@ -1,10 +1,10 @@
-
+// report-card-system/src/app.ts
   
   import express, { Request, Response } from 'express';
   import cors from 'cors';
   import cookieParser from 'cookie-parser';
   import connectToDB from '@configs/db'
-  import checkEnvVars from '@utils/checkEnv'
+  import { connectRedis } from '@configs/redis';
 
 import authRouter from '@modules/auth/auth.route';
 import superAdminRouter from '@modules/super-admin/super-admin.route';
@@ -20,15 +20,14 @@ credentials: true
 app.use(express.json());
 app.use(cookieParser())
 
-const envVars = ["PORT","DB_URI","JWT_SECRET","NODE_ENV","SUPER_ADMIN_USERNAME","SUPER_ADMIN_PASSWORD","SUPER_ADMIN_NICKNAME","CLOUDINARY_URL"]
-// Checking for presence of all env variables
-checkEnvVars(envVars)
 
 const port = process.env.PORT || 3000
 const dbURL = process.env.DB_URI as string
 
 //Connecting to database
 connectToDB(dbURL)
+//Connecting to Redis
+connectRedis()
 
 app.listen(port, () => {
  console.log(`Server running on port ${port}`)
