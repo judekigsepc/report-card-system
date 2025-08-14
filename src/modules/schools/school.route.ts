@@ -1,3 +1,4 @@
+// src/modules/schools/school.route.ts
 
 import { Router } from "express";
 import { addSchool, updateSchool } from "./school.controller";

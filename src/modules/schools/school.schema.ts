@@ -1,3 +1,4 @@
+// src/modules/schools/school.schema.ts
 import z from "zod"
 
 export const schoolSchema = z.object({

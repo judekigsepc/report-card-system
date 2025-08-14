@@ -5,8 +5,6 @@ import { sendError } from "@utils/sendError"
 import { sendSuccess } from "@utils/sendSuccess"
 import { uploadToCloudinary } from "@utils/cloudinaryUpload"
 
-
-
 export const addSchool = async (req:Request,res:Response) => {
     try {
       const safeData = validateRequestBody("creation","school",req)
