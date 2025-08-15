@@ -1,3 +1,5 @@
+//@configs/redis.ts
+
 import { Redis } from "ioredis";
 
 let redis: Redis;

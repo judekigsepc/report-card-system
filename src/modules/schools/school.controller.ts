@@ -3,7 +3,7 @@ import {Request, Response} from "express"
 import School from "./school.model"
 import { sendError } from "@utils/sendError"
 import { sendSuccess } from "@utils/sendSuccess"
-import { uploadToCloudinary } from "@utils/cloudinaryUpload"
+import { uploadToCloudinary } from "@utils/cloudinary"
 
 export const addSchool = async (req:Request,res:Response) => {
     try {
@@ -37,7 +37,7 @@ export const updateSchool = async (req:Request, res:Response) => {
         throw new Error("School to update does not exist")
       }
 
-      const logoData = await uploadToCloudinary(req,"images")
+      const logoData = await uploadToCloudinary(req,"images",schoolToUpdate.logoData.public_id)
 
       const updatePayload = logoData
       ?{...safeData, logoData}
