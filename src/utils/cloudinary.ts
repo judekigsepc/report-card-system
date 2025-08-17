@@ -1,12 +1,7 @@
-//@utils/cloudinary.ts
-
-import {v2 as cloudinary} from "cloudinary"
-import streamifier from "streamifier"
-
-import { Request } from "express";
-
-
-
+import { Request } from 'express';
+import streamifier from 'streamifier';
+import { v2 as cloudinary } from 'cloudinary';
+import { cleanUpQueue } from '@jobs/cloudinary-cleanup/queue';
 export interface CloudinaryUploadResult {
   secure_url: string;
   public_id: string;
@@ -14,14 +9,12 @@ export interface CloudinaryUploadResult {
 
 export type ValidFolderNames = "images"
 
-//Note to self: The reason i used streamifier is because of req.file.buffer of multer, which stores the uploaded file in memory, and cloudinary needs a readbale stream
-
-export function uploadToCloudinary(
+export async function uploadToCloudinary(
   req: Request,
   folderName: ValidFolderNames,
-  publicId?: string // optional: if provided, overwrites
+  oldPublicId?: string // optional: if provided, overwrites existing file
 ): Promise<CloudinaryUploadResult | null> {
-  if (!req.file) return Promise.resolve(null);
+  if (!req.file) return null;
 
   const buffer = req.file.buffer;
 
@@ -29,14 +22,19 @@ export function uploadToCloudinary(
     const stream = cloudinary.uploader.upload_stream(
       {
         folder: folderName,
-        public_id: publicId,   // overwrite if provided
-        overwrite: Boolean(publicId),
-        invalidate: Boolean(publicId), // purge CDN cache if overwriting
+        public_id: oldPublicId,
+        overwrite: Boolean(oldPublicId),
+        invalidate: Boolean(oldPublicId),
       },
-      (error, result) => {
+      async (error, result) => {
         if (error) return reject(error);
 
         if (result?.secure_url && result?.public_id) {
+          // enqueue cleanup for old file if overwriting a different public_id
+          if (oldPublicId && oldPublicId !== result.public_id) {
+            await cleanUpQueue.add('delete-old-file', { publicId: oldPublicId });
+          }
+
           resolve({
             secure_url: result.secure_url,
             public_id: result.public_id,
@@ -49,13 +47,4 @@ export function uploadToCloudinary(
 
     streamifier.createReadStream(buffer).pipe(stream);
   });
-}
-
-export const deleteFromCloudinary = async (filePublicId: string) => {
-  try {
-     const result = await cloudinary.uploader.destroy(filePublicId)
-     console.log(result)
-  }catch(err) {
-     console.error(err)
-  }
 }

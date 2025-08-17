@@ -5,8 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only --env-file .env -r tsconfig-paths/register src/app.ts",
+    "dev:worker:cloudinary-cleanup":"ts-node-dev --respawn --transpile-only --env-file .env -r tsconfig-paths/register src/jobs/cloudinary-cleanup/worker.ts",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:worker:cloudinary-cleanup\"",
     "build": "tsc",
     "start": "node dist/app.js",
+    "start:worker:cloudinary-cleanup": "node dist/jobs/cloudinary-cleanup/worker.ts",
     "type-check": "tsc --noEmit"
   },
   "keywords": [],
@@ -39,6 +42,7 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^24.0.14",
     "@types/streamifier": "^0.1.2",
+    "concurrently": "^9.2.0",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
@@ -48,6 +52,7 @@
     "@configs": "dist/configs",
     "@modules": "dist/modules",
     "@types": "dist/types",
-    "@middlewares": "dist/middlewares"
+    "@middlewares": "dist/middlewares",
+    "@jobs": "dist/jobs"
   }
 }
