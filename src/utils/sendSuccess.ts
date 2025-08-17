@@ -1,6 +1,7 @@
 import { Response } from "express";
 
 const sanitiseData = (data:any) => {
+  // THIS THINGS DOESNT HANDLE ARRRAYS OF DATA, SHOULD TROUBLESHOOT THAT
     const raw = typeof data.toObject === 'function' ? data.toObject() : data;
     const {__v,password, ...cleaned} = raw
     return cleaned
