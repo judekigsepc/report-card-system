@@ -5,29 +5,8 @@ import bcrypt from 'bcrypt'
 import User from '../users/user.model'
 import { sendSuccess } from '@utils/sendSuccess'
 import jwt from 'jsonwebtoken'
+import { createUser } from '@modules/users/user.service'
 
-export const registerUser = async (req:Request, res: Response) => {
-    try {
-
-      const safeData = validateRequestBody('creation','user',req)
-
-      const password = await bcrypt.hash(safeData.password, 10)
-
-      // Checking if user already exists
-      const existingUser = await User.findOne({email: req.body.email}).lean()
-      if(existingUser) {
-        throw new Error("User with the same email already exists")
-      }
-
-      const registeredUser = await User.create({...safeData, password})
-      
-      sendSuccess(201,'User registration successful',registeredUser,res,true)
-
-    }
-    catch (err: unknown) {
-    sendError(500,'User registration failed',err, res)
-    }
-}
 
 export const loginUser = async (req: Request, res: Response) => {
     try {

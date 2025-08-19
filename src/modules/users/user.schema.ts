@@ -7,7 +7,9 @@ export const userLoginSchema = z.object({
 });
 
 export const userSchema = z.object({
-  fullName : z.string({message: "User's full names are required"}),
+  firstName : z.string({message: "User's full names are required"}),
+  lastName : z.string({message: "User's last names are required"}),
+  otherNames : z.string({message: "User's other names should be string"}).optional(),
   email: z.email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
 })

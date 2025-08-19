@@ -9,6 +9,7 @@
 import authRouter from '@modules/auth/auth.route';
 import superAdminRouter from '@modules/super-admin/super-admin.route';
 import schoolRouter from '@modules/schools/school.route';
+import schoolAdminRouter from '@modules/school-admin/school-admin.route';
 
 const app = express();
 
@@ -40,3 +41,4 @@ res.send('Server up and running')
 app.use('/api/v1//auth', authRouter)
 app.use('/api/v1/super_admin', superAdminRouter)
 app.use('/api/v1/schools',schoolRouter)
+app.use('/api/v1/school_admin', schoolAdminRouter)
