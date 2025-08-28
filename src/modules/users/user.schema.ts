@@ -12,4 +12,5 @@ export const userSchema = z.object({
   otherNames : z.string({message: "User's other names should be string"}).optional(),
   email: z.email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
+  forSchool: z.string().optional()
 })

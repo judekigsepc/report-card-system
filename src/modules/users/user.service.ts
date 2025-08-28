@@ -7,6 +7,7 @@ import { Request } from "express"
 
 export const createUser = async (req: Request, extraData: Record<any,any>) => {
      const safeData = validateRequestBody('creation','user',req)
+     console.log(safeData)
 
       const password = await bcrypt.hash(safeData.password, 10)
 
