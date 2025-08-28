@@ -18,7 +18,6 @@ export const addSchool = async (req:Request,res:Response) => {
 
        const logoData = await uploadToCloudinary(req,"images")
 
-
       const createdSchool = await School.create({...safeData,logoData:logoData})
 
      sendSuccess(201,"School added successfuly",createdSchool,res,true)
@@ -64,6 +63,7 @@ export const getAllSchools = async (req:Request, res:Response) => {
       sendError(500,"Schools retrieval failed",err,res)
      }
 }
+
 
 export const filterSchool = async (req: Request, res: Response) => {
   try {

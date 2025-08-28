@@ -9,6 +9,10 @@ interface IUser extends Document {
     password: string
     forSchool: Types.ObjectId
     role: UserRoles
+    avatarData: {
+        secure_url: string,
+        public_id: string
+    },
     //learnerId: string
 }
 
@@ -36,6 +40,10 @@ const UserSchema = new mongoose.Schema<IUser>({
     forSchool: {
         type: Schema.Types.ObjectId,
         required: true
+    },
+    avatarData: {
+        secure_url: {type: String, default:""},
+        public_id: {type:String, default:""}
     },
     role: {
         type: String,
