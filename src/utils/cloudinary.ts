@@ -14,7 +14,10 @@ export async function uploadToCloudinary(
   folderName: ValidFolderNames,
   oldPublicId?: string // optional: if provided, overwrites existing file
 ): Promise<CloudinaryUploadResult | null> {
-  if (!req.file) return null;
+  if (!req.file) return {
+            secure_url: '',
+            public_id: '',
+          };
 
   const buffer = req.file.buffer;
 

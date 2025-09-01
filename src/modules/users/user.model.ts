@@ -42,7 +42,9 @@ const UserSchema = new mongoose.Schema<IUser>({
         required: true
     },
     avatarData: {
-        secure_url: {type: String, default:""},
+        secure_url: {
+            type: String, default:""
+        },
         public_id: {type:String, default:""}
     },
     role: {
